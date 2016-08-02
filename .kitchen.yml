@@ -40,50 +40,52 @@ suites:
       - recipe[test]
       - recipe[test::repo]
 
-  - name: local_package_install
-    <<: *default
-    includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2' ]
-    run_list:
-      - recipe[test]
-      - recipe[test::local]
-
-  - name: chefdk
-    <<: *default
-    includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2', 'macosx-10.10', 'windows-server-2012r2-standard' ]
-    run_list:
-      <% if ENV['MIXLIB_INSTALL_GIT_REF'] %>
-      - recipe[test::install_git]
-      <% end %>
-      - recipe[test::chefdk]
-
-  # Tests that require access to Chef's internal network
-  - name: unstable_chefdk
-    <<: *default
-    provisioner:
-      product_name: chefdk
-      product_version: latest
-      channel: stable
-    includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2' ]
-    run_list:
-      <% if ENV['MIXLIB_INSTALL_GIT_REF'] %>
-      - recipe[test::install_git]
-      <% end %>
-      - recipe[test::unstable_chefdk]
-
-  - name: unstable_chef_server
-    <<: *default
-    includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2' ]
-    run_list:
-      <% if ENV['MIXLIB_INSTALL_GIT_REF'] %>
-      - recipe[test::install_git]
-      <% end %>
-      - recipe[test::unstable_chef_server]
-
-  - name: push_client
-    <<: *default
-    includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2' ]
-    run_list:
-      <% if ENV['MIXLIB_INSTALL_GIT_REF'] %>
-      - recipe[test::install_git]
-      <% end %>
-      - recipe[test::push]
+  # TODO: Remove/update these suites. What is it we are really trying to validate?
+  #       test fixture cookbook recipes need to be revisited.
+  # - name: local_package_install
+  #   <<: *default
+  #   includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2' ]
+  #   run_list:
+  #     - recipe[test]
+  #     - recipe[test::local]
+  #
+  # - name: chefdk
+  #   <<: *default
+  #   includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2', 'macosx-10.10', 'windows-server-2012r2-standard' ]
+  #   run_list:
+  #     <% if ENV['MIXLIB_INSTALL_GIT_REF'] %>
+  #     - recipe[test::install_git]
+  #     <% end %>
+  #     - recipe[test::chefdk]
+  #
+  # # Tests that require access to Chef's internal network
+  # - name: unstable_chefdk
+  #   <<: *default
+  #   provisioner:
+  #     product_name: chefdk
+  #     product_version: latest
+  #     channel: stable
+  #   includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2' ]
+  #   run_list:
+  #     <% if ENV['MIXLIB_INSTALL_GIT_REF'] %>
+  #     - recipe[test::install_git]
+  #     <% end %>
+  #     - recipe[test::unstable_chefdk]
+  #
+  # - name: unstable_chef_server
+  #   <<: *default
+  #   includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2' ]
+  #   run_list:
+  #     <% if ENV['MIXLIB_INSTALL_GIT_REF'] %>
+  #     - recipe[test::install_git]
+  #     <% end %>
+  #     - recipe[test::unstable_chef_server]
+  #
+  # - name: push_client
+  #   <<: *default
+  #   includes: [ 'ubuntu-12.04', 'ubuntu-14.04', 'centos-6.8', 'centos-7.2' ]
+  #   run_list:
+  #     <% if ENV['MIXLIB_INSTALL_GIT_REF'] %>
+  #     - recipe[test::install_git]
+  #     <% end %>
+  #     - recipe[test::push]
